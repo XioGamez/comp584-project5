@@ -7,7 +7,7 @@ btn.addEventListener("click", getInsult);  // click event
 
 // fetch insult from API
 function getInsult() {
-    const url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";  // API url
+    const url = "https://api.allorigins.win/get?url=" + encodeURIComponent( "https://evilinsult.com/generate_insult.php?lang=en&type=json" ) + "&_=" + Date.now(); // API url
 
     fetch(url)
         .then(res => res.json())
