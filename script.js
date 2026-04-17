@@ -17,7 +17,7 @@ function getInsult() {
             animateBox(box);
         })
         .catch(() => {
-            box.innerText = "Error loading insult 😭";
+            box.innerText = "Error loading insult";
         });
 }
 
