@@ -7,22 +7,17 @@ btn.addEventListener("click", getInsult);  // click event
 
 // fetch insult from API
 function getInsult() {
-    const url = "https://api.allorigins.win/get?url=" + encodeURIComponent( "https://evilinsult.com/generate_insult.php?lang=en&type=json" ) + "&_=" + Date.now(); // API url
-
-    fetch(url)
+    fetch("https://insult.mattbas.org/api/insult.json")
         .then(res => res.json())
         .then(data => {
-            const parsed = JSON.parse(data.contents);  // note: API returns html-wrapped json string in data.contents
+            const insult = cleanInsult(data.insult || data.message);
 
-            let insult = cleanInsult(parsed.insult);  // clean up html entities + formatting issues
-
-            box.innerText = insult;  // display in main box
-            addToHistory(insult);  // add to history list
-            animateBox(box);  // run animation
+            box.innerText = insult;
+            addToHistory(insult);
+            animateBox(box);
         })
-        .catch(err => {
-            console.log(err);
-            box.innerText = "Error loading insult";
+        .catch(() => {
+            box.innerText = "Error loading insult 😭";
         });
 }
 
