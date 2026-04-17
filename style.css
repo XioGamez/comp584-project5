@@ -1,0 +1,39 @@
+body {
+    font-family: "Times New Roman", sans-serif;
+    background: slategrey;
+    color: white;
+    text-align: center;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #3487cd;
+    color: white;
+}
+
+button:hover {
+    background: #1b5a9e;
+}
+
+.card {
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+}
+
+.history {
+    margin: 20px auto;
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+.history-item {
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+}
