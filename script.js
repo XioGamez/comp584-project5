@@ -6,28 +6,24 @@ const history = document.getElementById("history");
 btn.addEventListener("click", getInsult);  // click event
 
 // fetch insult from API
-async function getInsult() {
-    const url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
+function getInsult() {
+    const url = "https://api.allorigins.win/get?url=" + encodeURIComponent( "https://evilinsult.com/generate_insult.php?lang=en&type=json" ) + "&_=" + Date.now(); // API url
 
-    try {
-        const res = await fetch(url);
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const parsed = JSON.parse(data.contents);  // note: API returns html-wrapped json string in data.contents
 
-        if (!res.ok) {
-            throw new Error("Network error");
-        }
+            let insult = cleanInsult(parsed.insult);  // clean up html entities + formatting issues
 
-        const data = await res.json();
-
-        const insult = cleanInsult(data.insult);
-
-        box.innerText = insult;
-        addToHistory(insult);
-        animateBox(box);
-
-    } catch (err) {
-        console.log(err);
-        box.innerText = "Failed to load insult 😭";
-    }
+            box.innerText = insult;  // display in main box
+            addToHistory(insult);  // add to history list
+            animateBox(box);  // run animation
+        })
+        .catch(err => {
+            console.log(err);
+            box.innerText = "Error loading insult";
+        });
 }
 
 // html entity decoder
