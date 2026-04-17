@@ -7,14 +7,14 @@ btn.addEventListener("click", getInsult);  // click event
 
 // fetch insult from API
 function getInsult() {
-    fetch("https://insult.mattbas.org/api/insult.json")
+    fetch("https://insult.mattbas.org/api/insult.json")  // API url
         .then(res => res.json())
         .then(data => {
-            const insult = cleanInsult(data.insult || data.message);
+            const insult = cleanInsult(data.insult || data.message);  // clean up html entities + formatting issues
 
-            box.innerText = insult;
-            addToHistory(insult);
-            animateBox(box);
+            box.innerText = insult;  // display in main box
+            addToHistory(insult);  // add to history list
+            animateBox(box);  // run animation
         })
         .catch(() => {
             box.innerText = "Error loading insult";
