@@ -13,7 +13,7 @@ function getInsult() {
             const insult = cleanInsult(data.insult || data.message);  // clean up html entities + formatting issues
 
             box.innerText = insult;  // display in main box
-            addToHistory(insult);  // add to history list
+            addToHistory(insult, data);  // add to history list
             animateBox(box);  // run animation
         })
         .catch(() => {
@@ -40,10 +40,32 @@ function cleanInsult(str) {
 }
 
 // add to history list
-function addToHistory(insult) {
+function addToHistory(insult, fullData) {
     const item = document.createElement("div");
     item.className = "history-item";
-    item.innerText = insult;
+
+    const shortText = document.createElement("div");
+    shortText.className = "short-text";
+    shortText.innerText = insult;
+
+    const fullText = document.createElement("div");
+    fullText.className = "full-info";
+    fullText.innerText = JSON.stringify(fullData, null, 2);
+
+    item.appendChild(shortText);
+    item.appendChild(fullText);
+
+    item.addEventListener("click", () => {
+        item.classList.toggle("expanded");
+
+        // smooth dynamic height
+        if (item.classList.contains("expanded")) {
+            fullText.style.maxHeight = fullText.scrollHeight + "px";
+        } else {
+            fullText.style.maxHeight = "0px";
+        }
+    });
+
     history.prepend(item);
 }
 
@@ -62,4 +84,8 @@ function animateBox(element) {
         springStrength: 500,
         friction: 0.8  // damping (higher = faster stop)
     }).start(y);
+}
+
+function toggleExpand(element) {
+    element.classList.toggle("expanded");
 }
