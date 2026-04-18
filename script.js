@@ -41,13 +41,16 @@ function cleanInsult(str) {
 
 // add to history list
 function addToHistory(insult, fullData) {
+    // create container for new entry
     const item = document.createElement("div");
     item.className = "history-item";
 
+    // insult visible (always shown)
     const shortText = document.createElement("div");
     shortText.className = "short-text";
     shortText.innerText = insult;
 
+    // expanded info (hidden default)
     const fullText = document.createElement("div");
     fullText.className = "full-info";
     fullText.innerText = JSON.stringify(fullData, null, 2);
@@ -55,6 +58,7 @@ function addToHistory(insult, fullData) {
     item.appendChild(shortText);
     item.appendChild(fullText);
 
+    // handles toggle dropdown
     item.addEventListener("click", () => {
         item.classList.toggle("expanded");
 
@@ -66,7 +70,7 @@ function addToHistory(insult, fullData) {
         }
     });
 
-    history.prepend(item);
+    history.prepend(item);  // add new entry to top of history
 }
 
 // animation
